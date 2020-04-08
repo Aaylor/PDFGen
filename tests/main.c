@@ -2,7 +2,7 @@
 #include <string.h>
 
 #include "pdfgen.h"
-
+#define BLOB 1
 extern unsigned char data_penguin_jpg[];
 extern unsigned int data_penguin_jpg_len;
 
@@ -39,11 +39,11 @@ int main(int argc, char *argv[])
         fprintf(stderr, "Font width invalid: %d/%f\n", err, width);
         return -1;
     }
-
+#ifdef TIS_LONG_TEST /* Long tests are too long currently. */
     /* These calls should fail, since we haven't added a page yet */
     if (pdf_add_ppm(pdf, NULL, 10, 10, 20, 30, "data/teapot.ppm") >= 0)
         return -1;
-
+#endif
     if (pdf_add_jpeg(pdf, NULL, 100, 500, 50, 150, "data/penguin.jpg") >= 0)
         return -1;
 
@@ -75,8 +75,9 @@ int main(int argc, char *argv[])
         16, 60, 800, PDF_RGB(0, 0, 0), 300, PDF_ALIGN_JUSTIFY, &height);
     pdf_add_rectangle(pdf, NULL, 58, 800 + 16, 304, -height, 2,
                       PDF_RGB(0, 0, 0));
+#ifdef TIS_LONG_TEST /* Long tests are tool long. */
     pdf_add_ppm(pdf, NULL, 10, 10, 20, 30, "data/teapot.ppm");
-
+#endif
     pdf_add_jpeg(pdf, NULL, 150, 10, 50, 150, "data/grey.jpg");
 
     pdf_add_jpeg_data(pdf, NULL, 100, 500, 50, 150, data_penguin_jpg,
@@ -180,7 +181,7 @@ int main(int argc, char *argv[])
     pdf_append_page(pdf);
 
     pdf_set_font(pdf, "Times-Roman");
-    for (i = 0; i < 3000; i++) {
+    for (i = 0; i < BLOB; i++) {
         int xpos = (i / 100) * 40;
         int ypos = (i % 100) * 10;
         pdf_add_text(pdf, NULL, "Text blob", 8, xpos, ypos,
