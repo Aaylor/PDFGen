@@ -39,11 +39,11 @@ int main(int argc, char *argv[])
         fprintf(stderr, "Font width invalid: %d/%f\n", err, width);
         return -1;
     }
-
+#ifndef __TRUSTINSOFT_ANALYZER__ /* Long tests are not interesting. */
     /* These calls should fail, since we haven't added a page yet */
     if (pdf_add_ppm(pdf, NULL, 10, 10, 20, 30, "data/teapot.ppm") >= 0)
         return -1;
-
+#endif
     if (pdf_add_jpeg(pdf, NULL, 100, 500, 50, 150, "data/penguin.jpg") >= 0)
         return -1;
 
@@ -75,8 +75,9 @@ int main(int argc, char *argv[])
         16, 60, 800, PDF_RGB(0, 0, 0), 300, PDF_ALIGN_JUSTIFY, &height);
     pdf_add_rectangle(pdf, NULL, 58, 800 + 16, 304, -height, 2,
                       PDF_RGB(0, 0, 0));
+#ifndef __TRUSTINSOFT_ANALYZER__ /* Long tests are not interesting. */
     pdf_add_ppm(pdf, NULL, 10, 10, 20, 30, "data/teapot.ppm");
-
+#endif
     pdf_add_jpeg(pdf, NULL, 150, 10, 50, 150, "data/grey.jpg");
 
     pdf_add_jpeg_data(pdf, NULL, 100, 500, 50, 150, data_penguin_jpg,
