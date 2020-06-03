@@ -1,7 +1,7 @@
 PDFGen
 ======
 
-Sssimple C PDF Creation/Generation library.
+Simple C PDF Creation/Generation library.
 All contained a single C-file with header and no external library dependencies.
 
 Useful for embedding into other programs that require rudimentary PDF output.
