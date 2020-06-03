@@ -40,9 +40,11 @@ int main(int argc, char *argv[])
         return -1;
     }
 
+#ifdef TIS_LONG_TEST /* Long tests are too long currently. */
     /* These calls should fail, since we haven't added a page yet */
     if (pdf_add_ppm(pdf, NULL, 10, 10, 20, 30, "data/teapot.ppm") >= 0)
         return -1;
+#endif
 
     if (pdf_add_jpeg(pdf, NULL, 100, 500, 50, 150, "data/penguin.jpg") >= 0)
         return -1;
